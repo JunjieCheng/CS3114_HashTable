@@ -1,5 +1,8 @@
 /**
  * Test unit of class Handle
+ * 
+ * @author Junjie Cheng (cjunjie)
+ * @version August 31, 2016
  */
 
 import static org.junit.Assert.*;

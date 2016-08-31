@@ -6,7 +6,7 @@
  * The class containing the main method.
  *
  * @author Junjie Cheng(cjunjie) Liang Shi(blairshi)
- * @version 0.1
+ * @version Aug 31
  */
 
 // On my honor:
@@ -29,7 +29,12 @@
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
 
+
 public class Memman {
+    
+    private static byte[] pool;
+    private static DList freeBlocks;
+    
     /**
      * @param args
      *     Command line parameters
@@ -37,75 +42,22 @@ public class Memman {
     public static void main(String[] args) {
         if (args.length < 3) {
             System.out.println("Require 3 parameter.");
+            System.exit(1);
         }
         
         int size = Integer.parseInt(args[1]);
-        byte[] pool = MemManager(size);
+        MemManager(size);
         
         readFile(args[2]);
     }
     
-    public static byte[] MemManager(int size) {
-        return new byte[size];
+    public static void MemManager(int size) {
+        pool = new byte[size];
+        freeBlocks = new DList();
     }
     
     public static void readFile(String fileName) {
         
     }
     
-    private class DList {
-        
-        private Node head;
-        private Node tail;
-        private int number;
-        
-        public DList() {
-            this.head = new Node(0, 0, null, null);
-            this.tail = new Node(0, 0, head, null);
-            head.setNext(tail);
-            this.number = 0;
-        }
-        
-        private class Node {
-            private int pos;
-            private int len;
-            private Node prev;
-            private Node next;
-            
-            public Node(int pos, int len, Node prev, Node next) {
-                this.pos = pos;
-                this.len = len;
-                this.prev = prev;
-                this.next = next;
-            }
-            
-            public int pos() {
-                return pos;
-            }
-            
-            public int len() {
-                return len;
-            }
-            
-            public void setLen(int len) {
-                this.len = len;
-            }
-            
-            public Node prev() {
-                return this.prev;
-            }
-            
-            public Node next() {
-                return this.next;
-            }
-            
-            public void setPrev(Node node) {
-                this.prev = node;
-            }
-            
-            public void setNext(Node node) {
-                this.next = node;
-            }
-        }
-    }
 }

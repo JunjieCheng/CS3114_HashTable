@@ -35,6 +35,77 @@ public class Memman {
      *     Command line parameters
      */
     public static void main(String[] args) {
-        // This is the main file for the program.
+        if (args.length < 3) {
+            System.out.println("Require 3 parameter.");
+        }
+        
+        int size = Integer.parseInt(args[1]);
+        byte[] pool = MemManager(size);
+        
+        readFile(args[2]);
+    }
+    
+    public static byte[] MemManager(int size) {
+        return new byte[size];
+    }
+    
+    public static void readFile(String fileName) {
+        
+    }
+    
+    private class DList {
+        
+        private Node head;
+        private Node tail;
+        private int number;
+        
+        public DList() {
+            this.head = new Node(0, 0, null, null);
+            this.tail = new Node(0, 0, head, null);
+            head.setNext(tail);
+            this.number = 0;
+        }
+        
+        private class Node {
+            private int pos;
+            private int len;
+            private Node prev;
+            private Node next;
+            
+            public Node(int pos, int len, Node prev, Node next) {
+                this.pos = pos;
+                this.len = len;
+                this.prev = prev;
+                this.next = next;
+            }
+            
+            public int pos() {
+                return pos;
+            }
+            
+            public int len() {
+                return len;
+            }
+            
+            public void setLen(int len) {
+                this.len = len;
+            }
+            
+            public Node prev() {
+                return this.prev;
+            }
+            
+            public Node next() {
+                return this.next;
+            }
+            
+            public void setPrev(Node node) {
+                this.prev = node;
+            }
+            
+            public void setNext(Node node) {
+                this.next = node;
+            }
+        }
     }
 }

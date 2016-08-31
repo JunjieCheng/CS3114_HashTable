@@ -32,9 +32,6 @@
 
 public class Memman {
     
-    private static byte[] pool;
-    private static DList freeBlocks;
-    
     /**
      * @param args
      *     Command line parameters
@@ -46,14 +43,8 @@ public class Memman {
         }
         
         int size = Integer.parseInt(args[1]);
-        MemManager(size);
         
         readFile(args[2]);
-    }
-    
-    public static void MemManager(int size) {
-        pool = new byte[size];
-        freeBlocks = new DList();
     }
     
     public static void readFile(String fileName) {

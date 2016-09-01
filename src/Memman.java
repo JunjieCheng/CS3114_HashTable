@@ -1,12 +1,12 @@
 /**
- * {Project Description Here}
+ * Memory management
  */
 
 /**
  * The class containing the main method.
  *
  * @author Junjie Cheng(cjunjie) Liang Shi(blairshi)
- * @version Aug 31
+ * @version August 31, 2016
  */
 
 // On my honor:
@@ -47,7 +47,23 @@ public class Memman {
         readFile(args[2]);
     }
     
+    private void init() {
+        
+    }
+    
     public static void readFile(String fileName) {
+        
+    }
+    
+    public void insert() {
+        
+    }
+    
+    public void remove() {
+        
+    }
+    
+    public void print() {
         
     }
     

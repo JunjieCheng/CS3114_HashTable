@@ -1,3 +1,9 @@
+/**
+ * Hash table for storing artists and songs.
+ * 
+ * @author Junjie Cheng (cjunjie)
+ * @version August 31, 2016
+ */
 
 public class HashTable {
     
@@ -11,6 +17,20 @@ public class HashTable {
         this.capacity = size;
     }
     
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * @return the capacity
+     */
+    public int getCapacity() {
+        return capacity;
+    }
+
     public void add(Handle handle) {
         if (this.size == this.capacity) {
             expand();
@@ -42,5 +62,9 @@ public class HashTable {
         
         this.handles = temp;
         this.capacity *= 2;
+    }
+    
+    public void print() {
+        
     }
 }

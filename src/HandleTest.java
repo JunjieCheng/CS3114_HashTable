@@ -34,17 +34,5 @@ public class HandleTest extends TestCase {
         assertEquals(h1.getPos(), 0);
         assertEquals(h2.getPos(), 1);
     }
-    
-    /**
-     * Test equals.
-     */
-    @Test
-    public void testEquals() {
-        assertFalse(h1.equals(hNull));
-        assertTrue(h1.equals(h1));
-        assertFalse(h1.equals(new Integer(1)));
-        assertFalse(h1.equals(h2));
-        assertTrue(h1.equals(h3));
-    }
 
 }

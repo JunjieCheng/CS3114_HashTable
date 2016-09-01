@@ -7,7 +7,7 @@ import java.util.Iterator;
  * @version August 31, 2016
  */
 
-public class HashTable implements Iterable<Handle> {
+public class HashTable {
 
     /**
      * Array for Handle.
@@ -47,98 +47,31 @@ public class HashTable implements Iterable<Handle> {
     public int getCapacity() {
         return capacity;
     }
-
-    /**
-     * Add Handle to the end of the table.
-     * 
-     * @param handle    Handle to be added
-     */
-    public void add(Handle handle) {
-        if (this.size == this.capacity) {
-            expand();
-        }
-
-        this.handles[size] = handle;
-        this.size++;
-    }
-
-    /**
-     * Remove given Handle.
-     * 
-     * @param handle    The Handle to be removed
-     * @return  return true if found, else return false.
-     */
-    public boolean remove(Handle handle) {
-        for (int i = 0; i < this.size; i++) {
-            if (this.handles[i].equals(handle)) {
-                this.handles[i] = this.handles[this.size - 1];
-                this.size--;
-
-                return true;
+    
+    private int hash(String s, int m)
+    {
+        int intLength = s.length() / 4;
+        long sum = 0;
+        for (int j = 0; j < intLength; j++)
+        {
+            char[] c = s.substring(j * 4, (j * 4) + 4).toCharArray();
+            long mult = 1;
+            for (int k = 0; k < c.length; k++)
+            {
+                sum += c[k] * mult;
+                mult *= 256;
             }
         }
 
-        return false;
-    }
-
-    /**
-     * Expand the capacity of array and copy the content.
-     */
-    private void expand() {
-        Handle[] temp = new Handle[this.capacity * 2];
-
-        for (int i = 0; i < this.size; i++) {
-            temp[i] = this.handles[i];
+        char[] c = s.substring(intLength * 4).toCharArray();
+        long mult = 1;
+        for (int k = 0; k < c.length; k++)
+        {
+            sum += c[k] * mult;
+            mult *= 256;
         }
 
-        this.handles = temp;
-        this.capacity *= 2;
+        return (int)(Math.abs(sum) % m);
     }
 
-    /**
-     * @return Return an Iterator.
-     */
-    public Iterator<Handle> iterator() {
-        return new HandleIterator();
-    }
-
-    /**
-     * Iterator of Handle array.
-     * 
-     * @author Junjie Cheng (cjunjie)
-     * @version August 31, 2016
-     */
-    private class HandleIterator implements Iterator<Handle> {
-
-        /**
-         * Index of array.
-         */
-        private int index;
-
-        /**
-         * Create a new Iterator.
-         */
-        public HandleIterator() {
-            this.index = 0;
-        }
-
-        /**
-         * @return Return next Handle. If these is no next, return null.
-         */
-        public Handle next() {
-            if (hasNext()) {
-                return handles[index++];
-            }
-
-            return null;
-        }
-
-        /**
-         * @return Return true if has next Handle, else return false.
-         */
-        public boolean hasNext() {
-            return index < size;
-        }
-
-    }
 }

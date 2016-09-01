@@ -33,7 +33,7 @@ public class Handle {
      * 
      * @return pos
      */
-    public int pos() {
+    public int getPos() {
         return pos;
     }
 
@@ -42,7 +42,7 @@ public class Handle {
      * 
      * @return len
      */
-    public int len() {
+    public int getLen() {
         return len;
     }
 

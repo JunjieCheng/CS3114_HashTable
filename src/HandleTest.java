@@ -30,22 +30,24 @@ public class HandleTest extends TestCase {
      * Test pos.
      */
     @Test
-    public void testPos() {
-        assertEquals(h1.pos(), 0);
-        assertEquals(h2.pos(), 1);
+    public void testGetPos() {
+        assertEquals(h1.getPos(), 0);
+        assertEquals(h2.getPos(), 1);
     }
     
     /**
      * Test len.
      */
-    public void testLen() {
-        assertEquals(h1.len(), 1);
-        assertEquals(h2.len(), 2);
+    @Test
+    public void testGetLen() {
+        assertEquals(h1.getLen(), 1);
+        assertEquals(h2.getLen(), 2);
     }
     
     /**
      * Test equals.
      */
+    @Test
     public void testEquals() {
         assertFalse(h1.equals(hNull));
         assertTrue(h1.equals(h1));

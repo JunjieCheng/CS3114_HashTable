@@ -21,9 +21,9 @@ public class HandleTest extends TestCase {
      */
     @Before
     public void setUp() throws Exception {
-        this.h1 = new Handle(0, 1);
-        this.h2 = new Handle(1, 2);
-        this.h3 = new Handle(0, 1);
+        this.h1 = new Handle(0);
+        this.h2 = new Handle(1);
+        this.h3 = new Handle(0);
     }
 
     /**
@@ -33,15 +33,6 @@ public class HandleTest extends TestCase {
     public void testGetPos() {
         assertEquals(h1.getPos(), 0);
         assertEquals(h2.getPos(), 1);
-    }
-    
-    /**
-     * Test len.
-     */
-    @Test
-    public void testGetLen() {
-        assertEquals(h1.getLen(), 1);
-        assertEquals(h2.getLen(), 2);
     }
     
     /**

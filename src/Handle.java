@@ -11,11 +11,6 @@ public class Handle {
      * Position in memory pool.
      */
     private int pos;
-    
-    /**
-     * Length in memory pool.
-     */
-    private int len;
 
     /**
      * Create a new Handle.
@@ -23,9 +18,8 @@ public class Handle {
      * @param pos   Position
      * @param len   Length
      */
-    public Handle(int pos, int len) {
+    public Handle(int pos) {
         this.pos = pos;
-        this.len = len;
     }
 
     /**
@@ -35,15 +29,6 @@ public class Handle {
      */
     public int getPos() {
         return pos;
-    }
-
-    /**
-     * Return the Length.
-     * 
-     * @return len
-     */
-    public int getLen() {
-        return len;
     }
 
     /**
@@ -64,9 +49,6 @@ public class Handle {
             return false;
         
         Handle other = (Handle) obj;
-        
-        if (len != other.len)
-            return false;
         
         if (pos != other.pos)
             return false;

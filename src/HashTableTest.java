@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 import student.TestCase;
@@ -15,14 +13,14 @@ public class HashTableTest extends TestCase {
     /**
      * Objects for the test.
      */
-    private HashTable table;
+    private HashTable<String, Handle> table;
     
     /**
      * Initialize objects.
      */
     @Before
     public void setUp() throws Exception {
-        this.table = new HashTable(5);
+        this.table = new HashTable<String, Handle>(10);
     }
 
     /**
@@ -38,7 +36,19 @@ public class HashTableTest extends TestCase {
      */
     @Test
     public void testGetCapacity() {
-        assertEquals(table.getCapacity(), 5);
+        assertEquals(table.getCapacity(), 10);
+    }
+    
+    /**
+     * Test expand.
+     */
+    @Test
+    public void testExpand() {
+        for (int i = 0; i < 6; i++) {
+            this.table.insert(i + "", new Handle(i));
+        }
+        
+        assertEquals(this.table.getCapacity(), 10);
     }
     
 }

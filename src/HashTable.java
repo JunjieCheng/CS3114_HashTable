@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 /**
  * Hash table for storing artists and songs.
  * 
@@ -59,11 +57,9 @@ public class HashTable<K, V> {
         return capacity;
     }
 
-    public V get(K h) {
-        // TPDP]
-        return null;
-    }
-
+    /**
+     * Expand the HashTable when size is half of the capacity.
+     */
     private void expand() {
         @SuppressWarnings("unchecked")
         Entry[] temp = (Entry[]) new Object[this.capacity * 2];
@@ -81,6 +77,13 @@ public class HashTable<K, V> {
         }
     }
 
+    /**
+     * Calculate the hash code through key.
+     * 
+     * @param key   The key to be calculated.
+     * @param m     The capacity of HashTable.
+     * @return      The hash code.
+     */
     private int hash(K key, int m)
     {
         if (key.getClass() == String.class) {
@@ -112,6 +115,12 @@ public class HashTable<K, V> {
         throw new IllegalArgumentException();
     }
 
+    /**
+     * Insert the entry to HashTable.
+     * 
+     * @param key   The key of the entry.
+     * @param value The value of the entry.
+     */
     public void insert(K key, V value) {
         if (size + 1 == capacity / 2) {
             expand();
@@ -135,6 +144,13 @@ public class HashTable<K, V> {
         size++;
     }
 
+    /**
+     * Search the given key and store the value in value.
+     * 
+     * @param key   The key to be searched.
+     * @param value Store value.
+     * @return  Return true if find, else return false.
+     */
     public boolean search(K key, V value) {
         int home;
         int pos = home = hash(key, capacity);
@@ -152,6 +168,13 @@ public class HashTable<K, V> {
         }
     }
 
+    /**
+     * Remove the given key, and store value in value.
+     * 
+     * @param key   The key to be removed.
+     * @param value Store the value.
+     * @return  Return true if find, else return false.
+     */
     public boolean remove(K key, V value) {
         int home;
         int pos = home = hash(key, capacity);

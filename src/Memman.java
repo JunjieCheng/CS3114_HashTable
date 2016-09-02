@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 /**
  * Memory management
  */
@@ -6,7 +12,7 @@
  * The class containing the main method.
  *
  * @author Junjie Cheng(cjunjie) Liang Shi(blairshi)
- * @version August 31, 2016
+ * @version September 1, 2016
  */
 
 // On my honor:
@@ -31,40 +37,73 @@
 
 
 public class Memman {
-    
+
+    private static HashTable<String, Handle> artist, song;
+    private static MemManager pool;
+    private static DList freeBlocks;
+
     /**
      * @param args
      *     Command line parameters
+     * @throws FileNotFoundException 
      */
     public static void main(String[] args) {
         if (args.length < 3) {
             System.out.println("Require 3 parameter.");
             System.exit(1);
         }
-        
-        int size = Integer.parseInt(args[1]);
-        
+
+        init(args);
         readFile(args[2]);
     }
-    
-    private void init() {
-        
+
+    private static void init(String[] args) {
+        int size = Integer.parseInt(args[0]);
+        artist = new HashTable<String, Handle>(size);
+        song = new HashTable<String, Handle>(size);
+
+        size = Integer.parseInt(args[1]);
+        pool = new MemManager(size);
+        freeBlocks = new DList();
     }
-    
+
     public static void readFile(String fileName) {
-        
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] words = line.split(" ", 2);
+
+                if (words[0] == "insert") {
+                    insert(words[1]);
+                }
+                else if (words[0] == "remove") {
+                    remove(words[1]);
+                }
+                else {
+                    print(words[1]);
+                }
+            }
+            reader.close();
+        } 
+        catch (IOException e) {        
+            e.printStackTrace();
+        }
     }
-    
-    public void insert() {
-        
+
+    public static void insert(String str) {
+
     }
-    
-    public void remove() {
-        
+
+    public static void remove(String str) {
+
     }
-    
-    public void print() {
-        
+
+    public static void print(String str) {
+
     }
-    
+
 }

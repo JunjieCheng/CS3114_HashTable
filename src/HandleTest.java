@@ -14,7 +14,7 @@ public class HandleTest extends TestCase {
     /**
      * Objects for testing.
      */
-    private Handle h1, h2, h3, hNull;
+    private Handle h1, h2;
     
     /**
      * Set up.
@@ -23,7 +23,7 @@ public class HandleTest extends TestCase {
     public void setUp() throws Exception {
         this.h1 = new Handle(0);
         this.h2 = new Handle(1);
-        this.h3 = new Handle(0);
+        new Handle(0);
     }
 
     /**

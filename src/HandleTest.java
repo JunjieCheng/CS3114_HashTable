@@ -14,7 +14,8 @@ public class HandleTest extends TestCase {
     /**
      * Objects for testing.
      */
-    private Handle h1, h2;
+    private Handle h1;
+    private Handle h2;
     
     /**
      * Set up.

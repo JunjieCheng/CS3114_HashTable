@@ -36,10 +36,10 @@ class DList {
 
     /**
      * Search for space in free blocks.
-     * @param size  Needed size.
+     * @param length  Needed size.
      * @return  Return the position of the free block.
      */
-    public int search(int size) {
+    public int searchBlock(int length) {
         int res = Integer.MAX_VALUE;
         int pos = -1;
         Node current = this.head.next;
@@ -48,8 +48,8 @@ class DList {
             if (res == 0) {
                 break;
             }
-            if (current.len >= size && current.len - size < res) {
-                res = current.len - size;
+            if (current.len >= length && current.len - length < res) {
+                res = current.len - length;
                 pos = current.pos;
             }
             
@@ -122,7 +122,7 @@ class DList {
      * @param pos   Position of the free block.
      * @param len   Length of the free block.
      */
-    public void split(int pos, int len) {
+    public void splitBlock(int pos, int len) {
         Node current = this.head.next;
         
         while (current != this.tail) {
@@ -136,6 +136,8 @@ class DList {
                 current.pos += len;
                 merge(current);
             }
+            
+            current = current.next;
         }
     }
 

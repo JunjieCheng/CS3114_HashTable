@@ -16,7 +16,6 @@ public class Handle {
      * Create a new Handle.
      * 
      * @param pos   Position
-     * @param len   Length
      */
     public Handle(int pos) {
         this.pos = pos;

@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import student.TestCase;
 
 /**
@@ -20,6 +22,11 @@ public class MemmanTest extends TestCase {
     public void testMInit() {
         Memman mem = new Memman();
         assertNotNull(mem);
-        Memman.main(null);
+        
+        try {
+            Memman.main(new String[] {"100", "1000", "P1sampleInput.txt"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

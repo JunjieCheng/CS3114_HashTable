@@ -1,0 +1,51 @@
+total songs: 0
+total artists: 0
+|Blind Lemon Jefferson| is added to the artist database.
+|Long Lonesome Blues| is added to the song database.
+|Ma Rainey| is added to the artist database.
+|Ma Rainey's Black Bottom| is added to the song database.
+|Charley Patton| is added to the artist database.
+|Mississippi Boweavil Blues| is added to the song database.
+|Sleepy John Estes| is added to the artist database.
+|Street Car Blues| is added to the song database.
+|Bukka White| is added to the artist database.
+|Fixin' To Die Blues| is added to the song database.
+|Bukka White| 4
+|Sleepy John Estes| 30
+|Blind Lemon Jefferson| 40
+|Ma Rainey| 47
+|Charley Patton| 54
+total artists: 5
+|Mississippi Boweavil Blues| 2
+|Long Lonesome Blues| 35
+|Street Car Blues| 45
+|Ma Rainey's Black Bottom| 76
+|Fixin' To Die Blues| 81
+total songs: 5
+|Guitar Slim| is added to the artist database.
+|The Things That I Used To Do| is added to the song database.
+Duplicates not allowed.
+|Got The Blues| is added to the song database.
+|Little Eva| is added to the artist database.
+|The Loco-Motion| is added to the song database.
+|Bukka White| 4
+|Sleepy John Estes| 30
+|Guitar Slim| 32
+|Blind Lemon Jefferson| 40
+|Ma Rainey| 47
+|Charley Patton| 54
+|Little Eva| 58
+total artists: 7
+|Mississippi Boweavil Blues| 2
+|Long Lonesome Blues| 35
+|Street Car Blues| 45
+|The Things That I Used To Do| 56
+|Ma Rainey's Black Bottom| 76
+|The Loco-Motion| 78
+|Fixin' To Die Blues| 81
+|Got The Blues| 88
+total songs: 8
+|Jim Reeves| is added to the artist database.
+|Jingle Bells| is added to the song database.
+|Mongo Santamaria| is added to the artist database.
+|Watermelon Man| is added to the song database.

@@ -29,6 +29,8 @@ class DList {
         Node node = new Node(0, size);
         this.head = new Node(0, 0, null, node);
         this.tail = new Node(0, 0, node, null);
+        node.prev = this.head;
+        node.next = this.tail;
         this.size = 1;
     }
 
@@ -66,8 +68,8 @@ class DList {
         Node current = this.head.next;
         Node newNode = new Node(pos, len);
         
-        while (current.next != this.tail) {
-            if (pos > current.pos) {
+        while (current != this.tail) {
+            if (pos <= current.pos) {
                 break;
             }
             else {
@@ -75,10 +77,10 @@ class DList {
             }
         }
         
-        newNode.next = current.next;
-        current.next = newNode;
-        newNode.prev = current;
-        newNode.next.prev = newNode;
+        newNode.next = current;
+        newNode.prev = current.prev;
+        newNode.prev.next = newNode;
+        current.prev = newNode;
         this.size++;
         
         merge(newNode);
@@ -88,7 +90,7 @@ class DList {
      * Merge adjacent free blocks.
      * @param node  The node to be checked.
      */
-    public void merge(Node node) {
+    private void merge(Node node) {
         Node prev = node.prev;
         Node next = node.next;
         
@@ -123,7 +125,7 @@ class DList {
     public void split(int pos, int len) {
         Node current = this.head.next;
         
-        while (current.next != this.tail) {
+        while (current != this.tail) {
             if (current.pos == pos) {
                 if (current.len == len) {
                     this.size--;

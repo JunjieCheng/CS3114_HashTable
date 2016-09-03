@@ -1,6 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.IOException;
-
 /**
  * Hash table for storing artists and songs.
  * @author Junjie Cheng (cjunjie)
@@ -77,18 +74,16 @@ public class HashTable<K, V> {
 
     /**
      * Print all keys.
-     * @param f File for output.
      * @param name  Name of the HashTable
-     * @throws IOException  File not found Exception.
      */
-    public void print(BufferedWriter f, String name) throws IOException {
+    public void print(String name) {
         for (int i = 0; i < this.capacity; i++) {
             if (this.entries[i] != null) {
-                f.write("|" + this.entries[i].key + "| " + i + "\n");
+                System.out.println("|" + this.entries[i].key + "| " + i);
             }
         }
 
-        f.write("total " + name + "s: " + this.size + "\n");
+        System.out.println("total " + name + "s: " + this.size);
     }
 
     /**
@@ -184,7 +179,6 @@ public class HashTable<K, V> {
         for (int i = 1; this.entries[pos] != null; i++) {
             if (this.entries[pos] != null && 
                     key.equals(this.entries[pos].key)) {
-                System.out.println("Duplicates not allowed");
                 return false;
             }
 

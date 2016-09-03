@@ -1,7 +1,5 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 
@@ -89,54 +87,53 @@ public class Memman {
      */
     public static void readFile(String fileName) throws IOException {
         BufferedReader reader;
-        BufferedWriter writer;
 
         reader = new BufferedReader(new FileReader(fileName));
-        writer = new BufferedWriter(new FileWriter("Output.txt"));
         String line;
 
         while ((line = reader.readLine()) != null) {
             String[] words = line.split(" ", 2);
 
             if (words[0].equals("insert")) {
-                insert(words[1], writer);
+                insert(words[1]);
             }
             else if (words[0].equals("remove")) {
                 remove(words[1]);
             }
             else {
-                print(words[1], writer);
+                print(words[1]);
             }
         }
 
         reader.close();
-        writer.close();
     }
 
     /**
      * Insert.
      * @param str   Inserted String.
-     * @param f     Output file.
-     * @throws IOException
      */
-    public static void insert(String str, BufferedWriter f) throws IOException {
+    public static void insert(String str) {
         String[] words = str.split("<SEP>");
 
         Handle h = pool.insert(words[0]);
         if (artist.insert(words[0], h)) {
-            f.write("|" + words[0] + "| is added to the artist database.\n");
+            System.out.println("|" + words[0] +
+                    "| is added to the artist database.");
         }
         else {
-            f.write("|" + words[0] + "| duplicates a record already in the artist database.\n");
+            System.out.println("|" + words[0] + 
+                    "| duplicates a record already in the artist database.");
         }
 
         h = pool.insert(words[1]);
 
         if (song.insert(words[1], h)) {
-            f.write("|" + words[1] + "| is added to the song database.\n");
+            System.out.println("|" + words[1] + 
+                    "| is added to the song database.");
         }
         else {
-            f.write("|" + words[1] + "| duplicates a record already in the song database.\n");
+            System.out.println("|" + words[1] + 
+                    "| duplicates a record already in the song database.");
         }
     }
 
@@ -151,18 +148,16 @@ public class Memman {
     /**
      * Print.
      * @param str   Print option.
-     * @param f     Output file.
-     * @throws IOException
      */
-    public static void print(String str, BufferedWriter f) throws IOException {
+    public static void print(String str) {
         if (str.equals("artist")) {
-            artist.print(f, "artist");
+            artist.print("artist");
         }
         else if (str.equals("song")) {
-            song.print(f, "song");
+            song.print("song");
         }
         else {
-            //TODO
+            pool.print();
         }
     }
 

@@ -39,7 +39,9 @@ public class HashTableTest extends TestCase {
         assertEquals(table.getCapacity(), 10);
     }
     
-    
+    /**
+     * Test insert.
+     */
     @Test
     public void testInsert() {
         for (int i = 0; i < 3; i++) {
@@ -76,6 +78,9 @@ public class HashTableTest extends TestCase {
         assertFalse(this.table.search("a", res));
     }
     
+    /**
+     * Test remove.
+     */
     @Test
     public void testRemove() {
         for (int i = 0; i < 5; i++) {

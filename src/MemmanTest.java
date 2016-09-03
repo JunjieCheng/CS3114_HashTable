@@ -6,6 +6,7 @@ import student.TestCase;
  */
 
 public class MemmanTest extends TestCase {
+    
     /**
      * Sets up the tests that follow. In general, used for initialization
      */

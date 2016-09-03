@@ -101,11 +101,11 @@ public class Memman {
     }
 
     public static void remove(String str) {
-        //TODO
+        //TODO for mileStone 3
     }
 
     public static void print(String str) {
-        //TODO
+        //TODO for mileStone 3
     }
 
 }

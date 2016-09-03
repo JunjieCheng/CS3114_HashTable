@@ -6,7 +6,7 @@ public class MemManager {
 
     public MemManager(int size) {
         this.pool = new byte[size];
-        this.freeBlocks = new DList();
+        this.freeBlocks = new DList(size);
     }
     
     public Handle insert(String str) {

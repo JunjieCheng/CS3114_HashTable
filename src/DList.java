@@ -3,13 +3,39 @@ class DList {
 
     private Node head;
     private Node tail;
-    private int number;
+    private int size;
 
-    public DList() {
-        this.head = new Node(0, 0, null, null);
-        this.tail = new Node(0, 0, head, null);
-        head.setNext(tail);
-        this.number = 0;
+    public DList(int size) {
+        Node node = new Node(0, size);
+        this.head = new Node(0, 0, null, node);
+        this.tail = new Node(0, 0, node, null);
+        this.size = 1;
+    }
+
+    public int search(int size) {
+        int res = Integer.MAX_VALUE;
+        int pos = -1;
+        Node current = this.head.next;
+
+        while (current != this.tail) {
+            if (res == 0) {
+                break;
+            }
+            if (current.len >= size && current.len - size < res) {
+                res = current.len - size;
+                pos = current.pos;
+            }
+        }
+
+        return pos;
+    }
+    
+    public void add(int pos, int len) {
+        
+    }
+
+    public void merge(Node node) {
+        
     }
 
     private class Node {
@@ -26,32 +52,9 @@ class DList {
             this.next = next;
         }
 
-        public int pos() {
-            return pos;
-        }
-
-        public int len() {
-            return len;
-        }
-
-        public void setLen(int len) {
+        public Node(int pos, int len) {
+            this.pos = pos;
             this.len = len;
-        }
-
-        public Node prev() {
-            return this.prev;
-        }
-
-        public Node next() {
-            return this.next;
-        }
-
-        public void setPrev(Node node) {
-            this.prev = node;
-        }
-
-        public void setNext(Node node) {
-            this.next = node;
         }
     }
 }

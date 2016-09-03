@@ -7,7 +7,8 @@
 
 public class HashTable<K, V> {
 
-    class Entry {
+    @SuppressWarnings("hiding")
+    class Entry<K, V> {
         public K key;
         public V value;
 
@@ -20,7 +21,7 @@ public class HashTable<K, V> {
     /**
      * Array for Entry.
      */
-    private Entry[] entries;
+    private Entry<K, V>[] entries;
 
     /**
      * Size of array.
@@ -38,7 +39,7 @@ public class HashTable<K, V> {
      */
     @SuppressWarnings("unchecked")
     public HashTable(int size) {
-        this.entries = (Entry[]) new Object[size];
+        this.entries = new Entry[size];
         this.size = 0;
         this.capacity = size;
     }
@@ -62,19 +63,23 @@ public class HashTable<K, V> {
      */
     private void expand() {
         @SuppressWarnings("unchecked")
-        Entry[] temp = (Entry[]) new Object[this.capacity * 2];
+        Entry<K, V>[] temp = new Entry[this.capacity * 2];
         this.capacity *= 2;
 
-        for (int i = 0; i < capacity; i++) {
-            int home;
-            int pos = home = hash(this.entries[i].key, capacity);
+        for (int i = 0; i < capacity / 2; i++) {
+            int home, pos;
+            if (this.entries[i] != null) {
+                pos = home = hash(this.entries[i].key, capacity);
 
-            for (int j = 1; temp[pos] != null; j++) {
-                pos = (home + j * j) % capacity;
+                for (int j = 1; temp[pos] != null; j++) {
+                    pos = (home + j * j) % capacity;
+                }
+
+                temp[pos] = this.entries[i];
             }
-
-            temp[pos] = this.entries[i];
         }
+
+        this.entries = temp;
     }
 
     /**
@@ -122,22 +127,23 @@ public class HashTable<K, V> {
      * @param value The value of the entry.
      */
     public void insert(K key, V value) {
-        if (size + 1 == capacity / 2) {
+        if (size + 1 > capacity / 2) {
             expand();
         }
 
-        Entry e = new Entry(key, value);
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        Entry<K, V> e = new Entry(key, value);
 
         int home;
         int pos = home = hash(key, capacity);
 
-        for (int i = 1; entries[pos] != null; i++) {
-            pos = (home + i * i) % capacity;
-
-            if (key.equals(entries[pos].key)) {
+        for (int i = 1; this.entries[pos] != null; i++) {
+            if (this.entries[pos] != null && key.equals(this.entries[pos].key)) {
                 System.out.println("Duplicates not allowed");
                 return;
             }
+
+            pos = (home + i * i) % capacity;
         }
 
         entries[pos] = e;
@@ -158,8 +164,8 @@ public class HashTable<K, V> {
         for (int i = 1; entries[pos] != null && !entries[pos].key.equals(key); i++) {
             pos = (home + i * i) % capacity;
         }
-        
-        if (entries[pos].key.equals(key)) {
+
+        if (entries[pos] != null && entries[pos].key.equals(key)) {
             value = entries[pos].value;
             return true;
         }
@@ -182,8 +188,8 @@ public class HashTable<K, V> {
         for (int i = 1; entries[pos] != null && !entries[pos].key.equals(key); i++) {
             pos = (home + i * i) % capacity;
         }
-        
-        if (entries[pos].key.equals(key)) {
+
+        if (entries[pos] != null && entries[pos].key.equals(key)) {
             value = entries[pos].value;
             entries[pos] = null;
             size--;

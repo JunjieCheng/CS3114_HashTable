@@ -39,6 +39,16 @@ public class HashTableTest extends TestCase {
         assertEquals(table.getCapacity(), 10);
     }
     
+    @Test
+    public void testInsert() {
+        for (int i = 0; i < 3; i++) {
+            this.table.insert(i + "", new Handle(i));
+            this.table.insert(i + "", new Handle(i));
+        }
+        
+        assertEquals(this.table.getSize(), 3);
+    }
+    
     /**
      * Test expand.
      */
@@ -48,7 +58,32 @@ public class HashTableTest extends TestCase {
             this.table.insert(i + "", new Handle(i));
         }
         
-        assertEquals(this.table.getCapacity(), 10);
+        assertEquals(this.table.getCapacity(), 20);
     }
     
+    /**
+     * Test search.
+     */
+    @Test
+    public void testSearch() {
+        for (int i = 0; i < 5; i++) {
+            this.table.insert(i + "", new Handle(i));
+        }
+        
+        Handle res = null;
+        assertTrue(this.table.search( "1", res));
+        assertFalse(this.table.search("a", res));
+    }
+    
+    @Test
+    public void testRemove() {
+        for (int i = 0; i < 5; i++) {
+            this.table.insert(i + "", new Handle(i));
+        }
+        
+        Handle res = null;
+        assertTrue(this.table.remove("1", res));
+        assertEquals(this.table.getSize(), 4);
+        assertFalse(this.table.remove("a", res));
+    }
 }

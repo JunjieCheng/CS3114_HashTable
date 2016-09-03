@@ -40,7 +40,6 @@ public class Memman {
 
     private static HashTable<String, Handle> artist, song;
     private static MemManager pool;
-    private static DList freeBlocks;
 
     /**
      * @param args
@@ -64,7 +63,6 @@ public class Memman {
 
         size = Integer.parseInt(args[1]);
         pool = new MemManager(size);
-        freeBlocks = new DList();
     }
 
     public static void readFile(String fileName) {
@@ -95,15 +93,19 @@ public class Memman {
     }
 
     public static void insert(String str) {
-
+        String[] words = str.split("<SEP>");
+        Handle h = pool.insert(words[0]);
+        artist.insert(words[0], h);
+        h = pool.insert(words[1]);
+        song.insert(words[1], h);
     }
 
     public static void remove(String str) {
-
+        //TODO
     }
 
     public static void print(String str) {
-
+        //TODO
     }
 
 }

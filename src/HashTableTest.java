@@ -39,6 +39,7 @@ public class HashTableTest extends TestCase {
         assertEquals(table.getCapacity(), 10);
     }
     
+    
     @Test
     public void testInsert() {
         for (int i = 0; i < 3; i++) {

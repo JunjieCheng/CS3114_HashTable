@@ -1,17 +1,41 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 /**
  * Hash table for storing artists and songs.
- * 
  * @author Junjie Cheng (cjunjie)
  * @version August 31, 2016
+ * 
+ * @param <K> key
+ * @param <V> value
  */
-
 public class HashTable<K, V> {
 
+    /**
+     * Entry.
+     * @author Junjie Cheng (cjunjie)
+     *
+     * @param <K> key
+     * @param <V> value
+     */
     @SuppressWarnings("hiding")
     class Entry<K, V> {
+
+        /**
+         * Key.
+         */
         public K key;
+
+        /**
+         * Value.
+         */
         public V value;
 
+        /**
+         * Create a new Entry.
+         * @param key   key.
+         * @param value Value.
+         */
         public Entry(K key, V value) {
             this.key = key;
             this.value = value;
@@ -52,6 +76,22 @@ public class HashTable<K, V> {
     }
 
     /**
+     * Print all keys.
+     * @param f File for output.
+     * @param name  Name of the HashTable
+     * @throws IOException  File not found Exception.
+     */
+    public void print(BufferedWriter f, String name) throws IOException {
+        for (int i = 0; i < this.capacity; i++) {
+            if (this.entries[i] != null) {
+                f.write("|" + this.entries[i].key + "| " + i + "\n");
+            }
+        }
+
+        f.write("total " + name + "s: " + this.size + "\n");
+    }
+
+    /**
      * @return the capacity
      */
     public int getCapacity() {
@@ -67,9 +107,12 @@ public class HashTable<K, V> {
         this.capacity *= 2;
 
         for (int i = 0; i < capacity / 2; i++) {
-            int home, pos;
+            int home;
+            int pos;
+
             if (this.entries[i] != null) {
-                pos = home = hash(this.entries[i].key, capacity);
+                home = hash(this.entries[i].key, capacity);
+                pos = home;
 
                 for (int j = 1; temp[pos] != null; j++) {
                     pos = (home + j * j) % capacity;
@@ -125,8 +168,9 @@ public class HashTable<K, V> {
      * 
      * @param key   The key of the entry.
      * @param value The value of the entry.
+     * @return Return true if be added, else return false.
      */
-    public void insert(K key, V value) {
+    public boolean insert(K key, V value) {
         if (size + 1 > capacity / 2) {
             expand();
         }
@@ -134,13 +178,14 @@ public class HashTable<K, V> {
         @SuppressWarnings({ "rawtypes", "unchecked" })
         Entry<K, V> e = new Entry(key, value);
 
-        int home;
-        int pos = home = hash(key, capacity);
+        int home = hash(key, capacity);
+        int pos = home;
 
         for (int i = 1; this.entries[pos] != null; i++) {
-            if (this.entries[pos] != null && key.equals(this.entries[pos].key)) {
+            if (this.entries[pos] != null && 
+                    key.equals(this.entries[pos].key)) {
                 System.out.println("Duplicates not allowed");
-                return;
+                return false;
             }
 
             pos = (home + i * i) % capacity;
@@ -148,6 +193,7 @@ public class HashTable<K, V> {
 
         entries[pos] = e;
         size++;
+        return true;
     }
 
     /**
@@ -158,10 +204,11 @@ public class HashTable<K, V> {
      * @return  Return true if find, else return false.
      */
     public boolean search(K key, V value) {
-        int home;
-        int pos = home = hash(key, capacity);
+        int home = hash(key, capacity);
+        int pos = home;
 
-        for (int i = 1; entries[pos] != null && !entries[pos].key.equals(key); i++) {
+        for (int i = 1; entries[pos] != null && 
+                !entries[pos].key.equals(key); i++) {
             pos = (home + i * i) % capacity;
         }
 
@@ -182,10 +229,11 @@ public class HashTable<K, V> {
      * @return  Return true if find, else return false.
      */
     public boolean remove(K key, V value) {
-        int home;
-        int pos = home = hash(key, capacity);
+        int home = hash(key, capacity);
+        int pos = home ;
 
-        for (int i = 1; entries[pos] != null && !entries[pos].key.equals(key); i++) {
+        for (int i = 1; entries[pos] != null && 
+                !entries[pos].key.equals(key); i++) {
             pos = (home + i * i) % capacity;
         }
 

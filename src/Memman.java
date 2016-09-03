@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 
@@ -38,15 +39,27 @@ import java.io.IOException;
 
 public class Memman {
 
-    private static HashTable<String, Handle> artist, song;
+    /**
+     * Artist Hash Table.
+     */
+    private static HashTable<String, Handle> artist;
+
+    /**
+     * Song Hash Table.
+     */
+    private static HashTable<String, Handle> song;
+
+    /**
+     * Memory pool.
+     */
     private static MemManager pool;
 
     /**
      * @param args
      *     Command line parameters
-     * @throws FileNotFoundException 
+     * @throws IOException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length < 3) {
             System.out.println("Require 3 parameter.");
             System.exit(1);
@@ -56,6 +69,10 @@ public class Memman {
         readFile(args[2]);
     }
 
+    /**
+     * Initialize.
+     * @param args  Arguments.
+     */
     private static void init(String[] args) {
         int size = Integer.parseInt(args[0]);
         artist = new HashTable<String, Handle>(size);
@@ -65,47 +82,88 @@ public class Memman {
         pool = new MemManager(size);
     }
 
-    public static void readFile(String fileName) {
+    /**
+     * Read file.
+     * @param fileName  File name.
+     * @throws IOException  
+     */
+    public static void readFile(String fileName) throws IOException {
         BufferedReader reader;
+        BufferedWriter writer;
 
-        try {
-            reader = new BufferedReader(new FileReader(fileName));
-            String line;
+        reader = new BufferedReader(new FileReader(fileName));
+        writer = new BufferedWriter(new FileWriter("Output.txt"));
+        String line;
 
-            while ((line = reader.readLine()) != null) {
-                String[] words = line.split(" ", 2);
+        while ((line = reader.readLine()) != null) {
+            String[] words = line.split(" ", 2);
 
-                if (words[0] == "insert") {
-                    insert(words[1]);
-                }
-                else if (words[0] == "remove") {
-                    remove(words[1]);
-                }
-                else {
-                    print(words[1]);
-                }
+            if (words[0].equals("insert")) {
+                insert(words[1], writer);
             }
-            reader.close();
-        } 
-        catch (IOException e) {        
-            e.printStackTrace();
+            else if (words[0].equals("remove")) {
+                remove(words[1]);
+            }
+            else {
+                print(words[1], writer);
+            }
+        }
+
+        reader.close();
+        writer.close();
+    }
+
+    /**
+     * Insert.
+     * @param str   Inserted String.
+     * @param f     Output file.
+     * @throws IOException
+     */
+    public static void insert(String str, BufferedWriter f) throws IOException {
+        String[] words = str.split("<SEP>");
+
+        Handle h = pool.insert(words[0]);
+        if (artist.insert(words[0], h)) {
+            f.write("|" + words[0] + "| is added to the artist database.\n");
+        }
+        else {
+            f.write("|" + words[0] + "| duplicates a record already in the artist database.\n");
+        }
+
+        h = pool.insert(words[1]);
+
+        if (song.insert(words[1], h)) {
+            f.write("|" + words[1] + "| is added to the song database.\n");
+        }
+        else {
+            f.write("|" + words[1] + "| duplicates a record already in the song database.\n");
         }
     }
 
-    public static void insert(String str) {
-        String[] words = str.split("<SEP>");
-        Handle h = pool.insert(words[0]);
-        artist.insert(words[0], h);
-        h = pool.insert(words[1]);
-        song.insert(words[1], h);
-    }
-
+    /**
+     * Remove.
+     * @param str   Removed String.
+     */
     public static void remove(String str) {
         //TODO for mileStone 3
     }
 
-    public static void print(String str) {
-        //TODO for mileStone 3
+    /**
+     * Print.
+     * @param str   Print option.
+     * @param f     Output file.
+     * @throws IOException
+     */
+    public static void print(String str, BufferedWriter f) throws IOException {
+        if (str.equals("artist")) {
+            artist.print(f, "artist");
+        }
+        else if (str.equals("song")) {
+            song.print(f, "song");
+        }
+        else {
+            //TODO
+        }
     }
 
 }

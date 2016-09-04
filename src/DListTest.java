@@ -2,7 +2,11 @@ import student.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * Test DList.
+ * @author Junjie Cheng (cjunjie)
+ * @version September 2, 2016
+ */
 public class DListTest extends TestCase {
 
     /**

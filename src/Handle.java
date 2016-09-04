@@ -1,3 +1,9 @@
+/**
+ * Handle of HashTable class
+ *
+ * @author Junjie Cheng (cjunjie)
+ * @version August 31, 2016
+ */
 
 public class Handle {
     

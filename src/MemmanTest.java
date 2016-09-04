@@ -2,7 +2,10 @@ import java.io.IOException;
 
 import student.TestCase;
 
-
+/**
+ * @author Junjie Cheng(cjunjie) Liang Shi(blairshi)
+ * @version 0.1
+ */
 
 public class MemmanTest extends TestCase {
     

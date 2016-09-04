@@ -1,5 +1,11 @@
-import HashTable.Entry;
-
+/**
+ * Hash table for storing artists and songs.
+ * @author Junjie Cheng (cjunjie)
+ * @version August 31, 2016
+ * 
+ * @param <K> key
+ * @param <V> value
+ */
 public class HashTable<K, V> {
 
     /**

@@ -47,8 +47,10 @@ public class DListTest extends TestCase {
     public void testSearchBlock() {
         this.list.add(110, 10);
         this.list.add(130, 15);
+        this.list.add(150, 50);
         assertEquals(this.list.searchBlock(10), 110);
         assertEquals(this.list.searchBlock(12), 130);
+        assertEquals(this.list.searchBlock(35), 150);
     }
     
     /**

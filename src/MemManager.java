@@ -1,8 +1,4 @@
-/**
- * Memory manager.
- * @author Junjie Cheng (cjunjie)
- * @version September 2, 2016
- */
+
 public class MemManager {
 
     /**

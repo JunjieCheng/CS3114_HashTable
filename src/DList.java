@@ -1,9 +1,5 @@
-/**
- * Free blocks list.
- * 
- * @author Junjie Cheng (cjunjie)
- * @version September 2, 2016
- */
+import DList.Node;
+
 class DList {
 
     /**

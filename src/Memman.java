@@ -3,16 +3,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-/**
- * Memory management
- */
-
-/**
- * The class containing the main method.
- *
- * @author Junjie Cheng(cjunjie) Liang Shi(blairshi)
- * @version September 1, 2016
- */
 
 // On my honor:
 //

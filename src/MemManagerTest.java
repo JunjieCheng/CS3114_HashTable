@@ -2,11 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 import student.TestCase;
 
-/**
- * Test MemManager.
- * @author Junjie Cheng (cjunjie)
- * @version September 2, 2016
- */
+
 public class MemManagerTest extends TestCase {
     
     /**

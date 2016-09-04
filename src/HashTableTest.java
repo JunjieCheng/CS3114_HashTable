@@ -2,11 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 import student.TestCase;
 
-/**
- * Test unit of class HashTable.
- * @author Junjie Cheng (cjunjie)
- * @version August 31, 2016
- */
+
 
 public class HashTableTest extends TestCase {
 

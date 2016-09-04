@@ -1,6 +1,3 @@
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 /**
  * Memory manager.
  * @author Junjie Cheng (cjunjie)
@@ -33,8 +30,10 @@ public class MemManager {
      * @return  Return a Handle of the String
      */
     public Handle insert(String str) {
-        byte[] length = ByteBuffer.allocate(2).
-                order(ByteOrder.LITTLE_ENDIAN).putInt(str.length()).array();
+        byte[] length = new byte[] {
+                (byte)(str.length() >> 8),
+                (byte)str.length()
+        };
         byte[] string = str.getBytes();
         int pos = this.freeBlocks.searchBlock(str.length() + 2);
 

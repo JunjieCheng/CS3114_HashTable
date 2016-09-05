@@ -9,9 +9,8 @@ import java.io.IOException;
 
 /**
  * The class containing the main method.
- *
- * @author Junjie Cheng(cjunjie) Liang Shi(blairshi)
- * @version September 1, 2016
+ * @author Junjie Cheng (cjunjie)
+ * @version September 4, 2016
  */
 
 // On my honor:
@@ -73,8 +72,8 @@ public class Memman {
      */
     private static void init(String[] args) {
         int size = Integer.parseInt(args[0]);
-        artist = new HashTable<String, Handle>(size);
-        song = new HashTable<String, Handle>(size);
+        artist = new HashTable<String, Handle>("Artist", size);
+        song = new HashTable<String, Handle>("Song", size);
 
         size = Integer.parseInt(args[1]);
         pool = new MemManager(size);
@@ -114,9 +113,11 @@ public class Memman {
      */
     public static void insert(String str) {
         String[] words = str.split("<SEP>");
-
-        Handle h = pool.insert(words[0]);
-        if (artist.insert(words[0], h)) {
+        Handle h;
+        
+        if (artist.search(words[0]) == null) {
+            h = pool.insert(words[0]);
+            artist.insert(words[0], h);
             System.out.println("|" + words[0] +
                     "| is added to the artist database.");
         }
@@ -125,16 +126,16 @@ public class Memman {
                     "| duplicates a record already in the artist database.");
         }
 
-        h = pool.insert(words[1]);
-
-        if (song.insert(words[1], h)) {
+        if (song.search(words[1]) == null) {
+            h = pool.insert(words[1]);
+            song.insert(words[1], h);
             System.out.println("|" + words[1] + 
                     "| is added to the song database.");
         }
         else {
             System.out.println("|" + words[1] + 
                     "| duplicates a record already in the song database.");
-        }
+        }   
     }
 
     /**
@@ -151,10 +152,10 @@ public class Memman {
      */
     public static void print(String str) {
         if (str.equals("artist")) {
-            artist.print("artist");
+            artist.print();
         }
         else if (str.equals("song")) {
-            song.print("song");
+            song.print();
         }
         else {
             pool.print();

@@ -55,13 +55,22 @@ public class HashTable<K, V> {
     private int capacity;
 
     /**
+     * Name of the HashTable.
+     */
+    private String name;
+    private String nameLowercase;
+
+    /**
      * Create a new Hash table.
+     * @param name Name of the HashTable.
      * @param size  Size of the Hash table
      */
     @SuppressWarnings("unchecked")
-    public HashTable(int size) {
+    public HashTable(String name, int size) {
         this.entries = new Entry[size];
         this.size = 0;
+        this.name = name;
+        this.nameLowercase = this.name.toLowerCase();
         this.capacity = size;
     }
 
@@ -74,16 +83,15 @@ public class HashTable<K, V> {
 
     /**
      * Print all keys.
-     * @param name  Name of the HashTable
      */
-    public void print(String name) {
+    public void print() {
         for (int i = 0; i < this.capacity; i++) {
             if (this.entries[i] != null) {
                 System.out.println("|" + this.entries[i].key + "| " + i);
             }
         }
 
-        System.out.println("total " + name + "s: " + this.size);
+        System.out.println("total " + this.nameLowercase + "s: " + this.size);
     }
 
     /**
@@ -118,6 +126,7 @@ public class HashTable<K, V> {
         }
 
         this.entries = temp;
+        System.out.println(name + " hash table size doubled.");
     }
 
     /**
@@ -177,11 +186,13 @@ public class HashTable<K, V> {
         int pos = home;
 
         for (int i = 1; this.entries[pos] != null; i++) {
-            if (this.entries[pos] != null && 
-                    key.equals(this.entries[pos].key)) {
+            if (this.entries[pos].key == null) {
+                break;
+            }
+            if (key.equals(this.entries[pos].key)) {
                 return false;
             }
-
+            
             pos = (home + i * i) % capacity;
         }
 
@@ -194,24 +205,23 @@ public class HashTable<K, V> {
      * Search the given key and store the value in value.
      * 
      * @param key   The key to be searched.
-     * @param value Store value.
      * @return  Return true if find, else return false.
      */
-    public boolean search(K key, V value) {
+    public V search(K key) {
         int home = hash(key, capacity);
         int pos = home;
 
-        for (int i = 1; entries[pos] != null && 
-                !entries[pos].key.equals(key); i++) {
+        for (int i = 1; this.entries[pos] != null 
+                && this.entries[pos].key != null
+                && !this.entries[pos].key.equals(key); i++) {
             pos = (home + i * i) % capacity;
         }
 
         if (entries[pos] != null && entries[pos].key.equals(key)) {
-            value = entries[pos].value;
-            return true;
+            return this.entries[pos].value;
         }
         else {
-            return false;
+            return null;
         }
     }
 
@@ -225,6 +235,7 @@ public class HashTable<K, V> {
     public boolean remove(K key, V value) {
         int home = hash(key, capacity);
         int pos = home ;
+        Entry<K, V> removed = new Entry<K, V>(null, null);
 
         for (int i = 1; entries[pos] != null && 
                 !entries[pos].key.equals(key); i++) {
@@ -233,7 +244,7 @@ public class HashTable<K, V> {
 
         if (entries[pos] != null && entries[pos].key.equals(key)) {
             value = entries[pos].value;
-            entries[pos] = null;
+            entries[pos] = removed;
             size--;
 
             return true;

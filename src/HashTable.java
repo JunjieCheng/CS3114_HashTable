@@ -58,7 +58,6 @@ public class HashTable<K, V> {
      * Name of the HashTable.
      */
     private String name;
-    private String nameLowercase;
 
     /**
      * Create a new Hash table.
@@ -70,7 +69,6 @@ public class HashTable<K, V> {
         this.entries = new Entry[size];
         this.size = 0;
         this.name = name;
-        this.nameLowercase = this.name.toLowerCase();
         this.capacity = size;
     }
 
@@ -86,12 +84,14 @@ public class HashTable<K, V> {
      */
     public void print() {
         for (int i = 0; i < this.capacity; i++) {
-            if (this.entries[i] != null) {
+            if (this.entries[i] != null 
+                    && this.entries[i].key != null) {
                 System.out.println("|" + this.entries[i].key + "| " + i);
             }
         }
 
-        System.out.println("total " + this.nameLowercase + "s: " + this.size);
+        System.out.println("total " + this.name.toLowerCase() 
+            + "s: " + this.size);
     }
 
     /**
@@ -190,6 +190,9 @@ public class HashTable<K, V> {
                 break;
             }
             if (key.equals(this.entries[pos].key)) {
+                System.out.println("|" + key + "| duplicates " 
+                        + "a record already in the "
+                        + this.name.toLowerCase() + "database.");
                 return false;
             }
             
@@ -198,6 +201,8 @@ public class HashTable<K, V> {
 
         entries[pos] = e;
         size++;
+        System.out.println("|" + key + "| is added to the "
+                + this.name.toLowerCase() + "database.");
         return true;
     }
 
@@ -205,7 +210,7 @@ public class HashTable<K, V> {
      * Search the given key and store the value in value.
      * 
      * @param key   The key to be searched.
-     * @return  Return true if find, else return false.
+     * @return  Return Handle if find, else return null.
      */
     public V search(K key) {
         int home = hash(key, capacity);
@@ -229,10 +234,9 @@ public class HashTable<K, V> {
      * Remove the given key, and store value in value.
      * 
      * @param key   The key to be removed.
-     * @param value Store the value.
-     * @return  Return true if find, else return false.
+     * @return  Return Handle if find, else return null.
      */
-    public boolean remove(K key, V value) {
+    public V remove(K key) {
         int home = hash(key, capacity);
         int pos = home ;
         Entry<K, V> removed = new Entry<K, V>(null, null);
@@ -243,14 +247,17 @@ public class HashTable<K, V> {
         }
 
         if (entries[pos] != null && entries[pos].key.equals(key)) {
-            value = entries[pos].value;
+            V value = this.entries[pos].value;
             entries[pos] = removed;
             size--;
-
-            return true;
+            System.out.println("|" + key + "| is removed from the "
+                    + this.name.toLowerCase() + "database.");
+            return value;
         }
         else {
-            return false;
+            System.out.println("|" + key + "| does not exist in the " 
+                    + this.name.toLowerCase() + "database.");
+            return null;
         }
     }
 

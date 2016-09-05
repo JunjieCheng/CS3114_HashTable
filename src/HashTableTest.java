@@ -51,7 +51,7 @@ public class HashTableTest extends TestCase {
         assertEquals(this.table.getSize(), 2);
 
         // Test removed collision case.
-        this.table.remove("aaaabbbb", new Handle(0));
+        this.table.remove("aaaabbbb");
         assertEquals(this.table.getSize(), 1);
         Handle h = null;
         this.table.insert("aaaabbbb", new Handle(0));
@@ -59,7 +59,8 @@ public class HashTableTest extends TestCase {
         assertEquals(h.getPos(), 0);
 
         // Test hash
-        HashTable<Integer, Handle> intTable = new HashTable<Integer, Handle>("Test", 10);
+        HashTable<Integer, Handle> intTable = 
+                new HashTable<Integer, Handle>("Test", 10);
         try {
             intTable.insert(1, new Handle(0));
         }
@@ -106,9 +107,8 @@ public class HashTableTest extends TestCase {
             this.table.insert(i + "", new Handle(i));
         }
 
-        Handle res = null;
-        assertTrue(this.table.remove("1", res));
+        assertNotNull(this.table.remove("1"));
         assertEquals(this.table.getSize(), 4);
-        assertFalse(this.table.remove("a", res));
+        assertNull(this.table.remove("a"));
     }
 }

@@ -114,28 +114,16 @@ public class Memman {
     public static void insert(String str) {
         String[] words = str.split("<SEP>");
         Handle h;
-        
+
         if (artist.search(words[0]) == null) {
             h = pool.insert(words[0]);
             artist.insert(words[0], h);
-            System.out.println("|" + words[0] +
-                    "| is added to the artist database.");
-        }
-        else {
-            System.out.println("|" + words[0] + 
-                    "| duplicates a record already in the artist database.");
         }
 
         if (song.search(words[1]) == null) {
             h = pool.insert(words[1]);
             song.insert(words[1], h);
-            System.out.println("|" + words[1] + 
-                    "| is added to the song database.");
-        }
-        else {
-            System.out.println("|" + words[1] + 
-                    "| duplicates a record already in the song database.");
-        }   
+        } 
     }
 
     /**
@@ -143,7 +131,19 @@ public class Memman {
      * @param str   Removed String.
      */
     public static void remove(String str) {
-        //TODO for mileStone 3
+        String[] words = str.split(" ", 2);
+        Handle h = null;
+
+        if (words[0].equals("artist")) {
+            h = artist.remove(words[1]);
+        }
+        else {
+            h = song.remove(words[1]);
+        }
+
+        if (h != null) {
+            pool.remove(h);
+        }
     }
 
     /**

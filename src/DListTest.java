@@ -65,5 +65,17 @@ public class DListTest extends TestCase {
         this.list.splitBlock(150, 10);
         assertEquals(this.list.getSize(), 1);
     }
+    
+    @Test
+    public void testPrint() {
+        this.list.print();
+        this.list.add(110, 10);
+        this.list.add(130, 15);
+        this.list.add(150, 50);
+        this.list.print();
+        
+        // Nothing to do here
+        assertEquals(this.list.getSize(), 4);
+    }
 
 }

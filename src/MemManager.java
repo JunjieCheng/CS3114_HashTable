@@ -33,7 +33,7 @@ public class MemManager {
     /**
      * Insert a String to memory pool.
      * @param str String
-     * @return  Return a Handle of the String
+     * @return  Return a Handle of the String.
      */
     public Handle insert(String str) {
         int pos = this.freeBlocks.searchBlock(str.length() + 2);
@@ -45,9 +45,11 @@ public class MemManager {
             pos = this.freeBlocks.searchBlock(str.length() + 2);
         }
 
+        this.freeBlocks.splitBlock(pos, str.length() + 2);
+
         byte[] length = new byte[] {
-            (byte)(str.length() >> 8),
-            (byte)str.length()
+                (byte)(str.length() >> 8),
+                (byte)str.length()
         };
         byte[] string = str.getBytes();
 
@@ -79,16 +81,22 @@ public class MemManager {
     /**
      * Remove a String from memory pool.
      * @param h Handle
-     * @return Return true if removed, else return false.
      */
-    public boolean remove(Handle h) {
-        return false;
+    public void remove(Handle h) {
+        int length = (this.pool[h.getPos()] << 8) |
+                (this.pool[h.getPos() + 1]);
+
+        for (int i = h.getPos(); i < length + 2; i++) {
+            this.pool[i] = 0;
+        }
+        
+        this.freeBlocks.add(h.getPos(), length);
     }
 
     /**
      * Print free blocks list.
      */
     public void print() {
-        //TODO
+        this.freeBlocks.print();
     }
 }

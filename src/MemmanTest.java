@@ -24,7 +24,7 @@ public class MemmanTest extends TestCase {
         assertNotNull(mem);
         
         try {
-            Memman.main(new String[] {"100", "1000", "P1sampleInput.txt"});
+            Memman.main(new String[] {"10", "32", "P1sampleInput.txt"});
         } catch (IOException e) {
             e.printStackTrace();
         }

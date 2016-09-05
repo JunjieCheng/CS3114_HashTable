@@ -10,12 +10,12 @@ class DList {
      * Head of the list.
      */
     private Node head;
-    
+
     /**
      * End of the list.
      */
     private Node tail;
-    
+
     /**
      * Number of Node in the list.
      */
@@ -52,13 +52,13 @@ class DList {
                 res = current.len - length;
                 pos = current.pos;
             }
-            
+
             current = current.next;
         }
 
         return pos;
     }
-    
+
     /**
      * Add a new free block to the list.
      * @param pos   Position of the free block.
@@ -67,7 +67,7 @@ class DList {
     public void add(int pos, int len) {
         Node current = this.head.next;
         Node newNode = new Node(pos, len);
-        
+
         while (current != this.tail) {
             if (pos <= current.pos) {
                 break;
@@ -76,13 +76,13 @@ class DList {
                 current = current.next;
             }
         }
-        
+
         newNode.next = current;
         newNode.prev = current.prev;
         newNode.prev.next = newNode;
         current.prev = newNode;
         this.size++;
-        
+
         merge(newNode);
     }
 
@@ -93,14 +93,14 @@ class DList {
     private void merge(Node node) {
         Node prev = node.prev;
         Node next = node.next;
-        
+
         if (prev.pos + prev.len == node.pos) {
             prev.len += node.len;
             prev.next = node.next;
             node.next.prev = prev;
             this.size--;
         }
-        
+
         if (node.pos + node.len == next.pos) {
             node.len += next.len;
             node.next = next.next;
@@ -108,7 +108,7 @@ class DList {
             this.size--;
         }
     }
-    
+
     /**
      * Get size.
      * @return  Size.
@@ -116,7 +116,7 @@ class DList {
     public int getSize() {
         return this.size;
     }
-    
+
     /**
      * Split space from a free block.
      * @param pos   Position of the free block.
@@ -124,21 +124,35 @@ class DList {
      */
     public void splitBlock(int pos, int len) {
         Node current = this.head.next;
-        
+
         while (current != this.tail) {
             if (current.pos == pos) {
                 if (current.len == len) {
                     this.size--;
                     break;
                 }
-                
+
                 current.len -= len;
                 current.pos += len;
                 merge(current);
             }
-            
+
             current = current.next;
         }
+    }
+
+    /**
+     * Print blocks.
+     */
+    public void print() {
+        Node current = this.head.next;
+
+        while (current.next != this.tail) {
+            System.out.printf("(%d,%d) -> ", current.pos, current.len);
+            current = current.next;
+        }
+
+        System.out.printf("(%d,%d)\n", current.pos, current.len);
     }
 
     /**
@@ -152,17 +166,17 @@ class DList {
          * Position.
          */
         private int pos;
-        
+
         /**
          * Length.
          */
         private int len;
-        
+
         /**
          * Previous Node.
          */
         private Node prev;
-        
+
         /**
          * Next Node.
          */

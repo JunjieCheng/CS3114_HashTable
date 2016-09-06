@@ -20,7 +20,7 @@ public class MemManagerTest extends TestCase {
      */
     @Before
     public void setUp() throws Exception {
-        this.pool = new MemManager(1000);
+        this.pool = new MemManager(32);
     }
     
     /**
@@ -29,6 +29,19 @@ public class MemManagerTest extends TestCase {
     @Test
     public void testInsert() {
         assertEquals(this.pool.insert("a").getPos(), 0);
+        
+        for (int i = 0; i < 100; i++) {
+            this.pool.insert("" + i);
+        }
+    }
+    
+    /**
+     * Test remove.
+     */
+    @Test
+    public void testRemove() {
+        assertEquals(this.pool.insert("a").getPos(), 0);
+        this.pool.remove(new Handle(0));
     }
 
 }

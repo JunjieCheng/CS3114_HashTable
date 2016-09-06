@@ -78,10 +78,11 @@ public class HashTableTest extends TestCase {
         this.table.insert("aaaabbbb", h);
         this.table.insert("bbbbaaaa", h);
         this.table.insert("bbbbcccc", h);
+        this.table.remove("aaaabbbb");
         this.table.insert("ccccbbbb", h);
         this.table.insert("ccccdddd", h);
         this.table.insert("ddddcccc", h);
-
+        this.table.insert("ddddeeee", h);
         assertEquals(this.table.getCapacity(), 20);
     }
 
@@ -90,12 +91,17 @@ public class HashTableTest extends TestCase {
      */
     @Test
     public void testSearch() {
-        for (int i = 0; i < 5; i++) {
-            this.table.insert(i + "", new Handle(i));
-        }
-
-        assertNotNull(this.table.search( "1"));
+        Handle h = new Handle(0);
+       
+        this.table.insert("aaaabbbb", h);
+        this.table.insert("bbbbaaaa", h);
+        assertNotNull(this.table.search( "aaaabbbb"));
         assertNull(this.table.search("a"));
+        assertNull(this.table.search("b"));
+        
+        this.table.remove("aaaabbbb");
+        assertNull(this.table.search("aaaabbbb"));
+        assertNotNull(this.table.search("bbbbaaaa"));
     }
 
     /**
@@ -103,12 +109,14 @@ public class HashTableTest extends TestCase {
      */
     @Test
     public void testRemove() {
-        for (int i = 0; i < 5; i++) {
-            this.table.insert(i + "", new Handle(i));
-        }
-
-        assertNotNull(this.table.remove("1"));
-        assertEquals(this.table.getSize(), 4);
+        Handle h = new Handle(0);
+        
+        this.table.insert("aaaabbbb", h);
+        this.table.insert("bbbbaaaa", h);
+        assertNotNull(this.table.remove("bbbbaaaa"));
         assertNull(this.table.remove("a"));
+        
+        this.table.insert("bbbbaaaa", h);
+        assertNotNull(this.table.remove("aaaabbbb"));
     }
 }

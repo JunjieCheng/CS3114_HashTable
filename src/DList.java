@@ -96,9 +96,10 @@ class DList {
 
         if (prev != this.head 
                 && prev.pos + prev.len == node.pos) {
-            prev.len += node.len;
-            prev.next = node.next;
-            node.next.prev = prev;
+            node.pos = prev.pos;
+            node.len += prev.len;
+            node.prev = prev.prev;
+            node.prev.next = node;
             this.size--;
         }
 

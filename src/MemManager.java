@@ -68,7 +68,7 @@ public class MemManager {
     /**
      * Expand the memory pool when it is full.
      */
-    public void expand() {
+    private void expand() {
         byte[] temp = new byte[this.pool.length + this.expandSize];
 
         for (int i = 0; i < this.pool.length; i++) {

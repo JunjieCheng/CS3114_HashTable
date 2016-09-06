@@ -1,4 +1,7 @@
-insert b<SEP>2
-remove song 2
-remove artist b
+insert aaaaaaaa<SEP>22222222
+insert bbbbbbbb<SEP>11111111
+remove song 22222222
+remove artist aaaaaaaa
+remove song 11111111
+remove artist bbbbbbbb
 print blocks

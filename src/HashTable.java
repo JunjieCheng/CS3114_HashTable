@@ -113,7 +113,8 @@ public class HashTable<K, V> {
             int home;
             int pos;
 
-            if (this.entries[i] != null) {
+            if (this.entries[i] != null 
+                    && this.entries[i].key != null) {
                 home = hash(this.entries[i].key, capacity);
                 pos = home;
 
@@ -219,18 +220,12 @@ public class HashTable<K, V> {
         for (int i = 1; this.entries[pos] != null; i++) {
             if (this.entries[pos].key != null 
                     && this.entries[pos].key.equals(key)) {
-                break;
+                return this.entries[pos].value;
             }
             pos = (home + i * i) % capacity;
         }
 
-        if (this.entries[pos] == null
-                || this.entries[pos].key == null) {
-            return null;
-        }
-        else {
-            return this.entries[pos].value;
-        }
+        return null;
     }
 
     /**
@@ -244,24 +239,26 @@ public class HashTable<K, V> {
         int pos = home ;
         Entry<K, V> removed = new Entry<K, V>(null, null);
 
-        for (int i = 1; entries[pos] != null && 
-                !entries[pos].key.equals(key); i++) {
+        for (int i = 1; this.entries[pos] != null; i++) {
+            if (this.entries[pos].key != null 
+                    && this.entries[pos].key.equals(key)) {
+                V value = this.entries[pos].value;
+                this.entries[pos] = removed;
+                size--;
+                System.out.println("|" + key + "| is removed from the "
+                        + this.name.toLowerCase() + " database.");
+                return value;
+            }
             pos = (home + i * i) % capacity;
+            
+            if (pos == home) {
+                break;
+            }
         }
 
-        if (entries[pos] != null && entries[pos].key.equals(key)) {
-            V value = this.entries[pos].value;
-            entries[pos] = removed;
-            size--;
-            System.out.println("|" + key + "| is removed from the "
-                    + this.name.toLowerCase() + " database.");
-            return value;
-        }
-        else {
-            System.out.println("|" + key + "| does not exist in the " 
-                    + this.name.toLowerCase() + " database.");
-            return null;
-        }
+        System.out.println("|" + key + "| does not exist in the " 
+                + this.name.toLowerCase() + " database.");
+        return null;
     }
 
 }

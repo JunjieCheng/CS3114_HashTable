@@ -192,17 +192,17 @@ public class HashTable<K, V> {
             if (key.equals(this.entries[pos].key)) {
                 System.out.println("|" + key + "| duplicates " 
                         + "a record already in the "
-                        + this.name.toLowerCase() + "database.");
+                        + this.name.toLowerCase() + " database.");
                 return false;
             }
-            
+
             pos = (home + i * i) % capacity;
         }
 
         entries[pos] = e;
         size++;
         System.out.println("|" + key + "| is added to the "
-                + this.name.toLowerCase() + "database.");
+                + this.name.toLowerCase() + " database.");
         return true;
     }
 
@@ -216,17 +216,20 @@ public class HashTable<K, V> {
         int home = hash(key, capacity);
         int pos = home;
 
-        for (int i = 1; this.entries[pos] != null 
-                && this.entries[pos].key != null
-                && !this.entries[pos].key.equals(key); i++) {
+        for (int i = 1; this.entries[pos] != null; i++) {
+            if (this.entries[pos].key != null 
+                    && this.entries[pos].key.equals(key)) {
+                break;
+            }
             pos = (home + i * i) % capacity;
         }
 
-        if (entries[pos] != null && entries[pos].key.equals(key)) {
-            return this.entries[pos].value;
+        if (this.entries[pos] == null
+                || this.entries[pos].key == null) {
+            return null;
         }
         else {
-            return null;
+            return this.entries[pos].value;
         }
     }
 
@@ -251,12 +254,12 @@ public class HashTable<K, V> {
             entries[pos] = removed;
             size--;
             System.out.println("|" + key + "| is removed from the "
-                    + this.name.toLowerCase() + "database.");
+                    + this.name.toLowerCase() + " database.");
             return value;
         }
         else {
             System.out.println("|" + key + "| does not exist in the " 
-                    + this.name.toLowerCase() + "database.");
+                    + this.name.toLowerCase() + " database.");
             return null;
         }
     }

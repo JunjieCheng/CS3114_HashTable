@@ -1,0 +1,4 @@
+insert b<SEP>2
+remove song 2
+remove artist b
+print blocks

@@ -119,11 +119,19 @@ public class Memman {
             h = pool.insert(words[0]);
             artist.insert(words[0], h);
         }
+        else {
+            System.out.println("|" + words[0] + "| duplicates " 
+                    + "a record already in the artist database.");
+        }
 
         if (song.search(words[1]) == null) {
             h = pool.insert(words[1]);
             song.insert(words[1], h);
         } 
+        else {
+            System.out.println("|" + words[1] + "| duplicates " 
+                    + "a record already in the song database.");
+        }
     }
 
     /**

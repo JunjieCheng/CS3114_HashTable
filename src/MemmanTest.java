@@ -25,7 +25,8 @@ public class MemmanTest extends TestCase {
         
         try {
             Memman.main(new String[] {"10", "32", "P1sampleInput.txt"});
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -66,6 +66,9 @@ public class DListTest extends TestCase {
         assertEquals(this.list.getSize(), 1);
     }
     
+    /**
+     * Test print.
+     */
     @Test
     public void testPrint() {
         this.list.print();

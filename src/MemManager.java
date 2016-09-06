@@ -38,7 +38,9 @@ public class MemManager {
     public Handle insert(String str) {
         int pos = this.freeBlocks.searchBlock(str.length() + 2);
 
-        if (pos == -1) {
+        // Expand multiply times in case that the memory pool is 
+        // still not big enough.
+        while (pos == -1) {
             int newPos = this.pool.length;
             expand();
             this.freeBlocks.add(newPos, this.expandSize);
@@ -48,8 +50,8 @@ public class MemManager {
         this.freeBlocks.splitBlock(pos, str.length() + 2);
 
         byte[] length = new byte[] {
-                (byte)(str.length() >> 8),
-                (byte)str.length()
+            (byte)(str.length() >> 8),
+            (byte)str.length()
         };
         byte[] string = str.getBytes();
 
@@ -86,11 +88,11 @@ public class MemManager {
         int length = (this.pool[h.getPos()] << 8) |
                 (this.pool[h.getPos() + 1]);
 
-        for (int i = h.getPos(); i < length + 2; i++) {
-            this.pool[i] = 0;
+        for (int i = 0; i < length + 2; i++) {
+            this.pool[h.getPos() + i] = 0;
         }
         
-        this.freeBlocks.add(h.getPos(), length);
+        this.freeBlocks.add(h.getPos(), length + 2);
     }
 
     /**

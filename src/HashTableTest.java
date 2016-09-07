@@ -119,4 +119,5 @@ public class HashTableTest extends TestCase {
         this.table.insert("bbbbaaaa", h);
         assertNotNull(this.table.remove("aaaabbbb"));
     }
+   
 }

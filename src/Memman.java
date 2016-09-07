@@ -116,6 +116,7 @@ public class Memman {
         Handle h;
 
         if (artist.search(words[0]) == null) {
+            artist.check();
             h = pool.insert(words[0]);
             artist.insert(words[0], h);
         }
@@ -125,6 +126,7 @@ public class Memman {
         }
 
         if (song.search(words[1]) == null) {
+            song.check();
             h = pool.insert(words[1]);
             song.insert(words[1], h);
         } 

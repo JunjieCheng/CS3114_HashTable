@@ -250,15 +250,20 @@ public class HashTable<K, V> {
                 return value;
             }
             pos = (home + i * i) % capacity;
-            
-            if (pos == home) {
-                break;
-            }
         }
 
         System.out.println("|" + key + "| does not exist in the " 
                 + this.name.toLowerCase() + " database.");
         return null;
+    }
+    
+    /**
+     * Check size.
+     */
+    public void check() {
+        if (size + 1 > capacity / 2) {
+            expand();
+        }
     }
 
 }

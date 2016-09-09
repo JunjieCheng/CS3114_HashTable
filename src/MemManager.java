@@ -77,7 +77,7 @@ public class MemManager {
 
         this.pool = temp;
         System.out.println("Memory pool expanded to be " + this.pool.length
-                + " bytes");
+                + " bytes.");
     }
 
     /**

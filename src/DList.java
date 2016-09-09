@@ -130,14 +130,17 @@ class DList {
 
         while (current != this.tail) {
             if (current.pos == pos) {
-                if (current.len == len) {
-                    this.size--;
-                    break;
-                }
-
                 current.len -= len;
                 current.pos += len;
-                merge(current);
+                
+                if (current.len == 0 && this.size > 1) {
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                    this.size--;
+                }
+                else {
+                    merge(current);
+                }
             }
 
             current = current.next;

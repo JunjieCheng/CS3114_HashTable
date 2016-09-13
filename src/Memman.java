@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * The class containing the main method.
- * @author Junjie Cheng (cjunjie)
+ * @author Junjie Cheng (cjunjie) Liyan Li (lliyan)
  * @version September 4, 2016
  */
 

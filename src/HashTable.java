@@ -102,7 +102,8 @@ public class HashTable<K, V> {
     }
 
     /**
-     * Expand the HashTable when size is half of the capacity.
+     * Expand the HashTable when size is more than
+     * half of the capacity.
      */
     private void expand() {
         @SuppressWarnings("unchecked")

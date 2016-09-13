@@ -13,7 +13,7 @@ public class DListTest extends TestCase {
      * DList.
      */
     private DList list;
-    
+
     /**
      * Set up.
      */
@@ -21,7 +21,7 @@ public class DListTest extends TestCase {
     public void setUp() throws Exception {
         this.list = new DList(100);
     }
-    
+
     /**
      * Test getSize.
      */
@@ -38,8 +38,16 @@ public class DListTest extends TestCase {
         this.list.add(110, 10);
         this.list.add(100, 10);
         assertEquals(this.list.getSize(), 1);
+        
+        this.list.splitBlock(0, 120);
+        this.list.add(120, 4);
+        assertEquals(this.list.getSize(), 1);
+
+        this.list.splitBlock(120, 3);
+        this.list.add(123, 4);
+        assertEquals(this.list.getSize(), 2);
     }
-    
+
     /**
      * Test searchBlock.
      */
@@ -52,7 +60,7 @@ public class DListTest extends TestCase {
         assertEquals(this.list.searchBlock(12), 130);
         assertEquals(this.list.searchBlock(35), 150);
     }
-    
+
     /**
      * Test splitBlock.
      */
@@ -60,12 +68,12 @@ public class DListTest extends TestCase {
     public void testSplitBlock() {
         this.list.splitBlock(0, 20);
         assertEquals(this.list.getSize(), 1);
-        
+
         this.list.add(150, 10);
         this.list.splitBlock(150, 10);
         assertEquals(this.list.getSize(), 1);
     }
-    
+
     /**
      * Test print.
      */
@@ -76,7 +84,7 @@ public class DListTest extends TestCase {
         this.list.add(130, 15);
         this.list.add(150, 50);
         this.list.print();
-        
+
         // Nothing to do here
         assertEquals(this.list.getSize(), 4);
     }

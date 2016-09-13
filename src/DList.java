@@ -77,13 +77,20 @@ class DList {
             }
         }
 
-        newNode.next = current;
-        newNode.prev = current.prev;
-        newNode.prev.next = newNode;
-        current.prev = newNode;
-        this.size++;
+        // Handle the case that add new block to the full pool
+        if (current.pos == pos && current.len == 0) {
+            current.len = len;
+        }
+        else {
+            newNode.next = current;
+            newNode.prev = current.prev;
+            newNode.prev.next = newNode;
+            current.prev = newNode;
+            this.size++;        
+            
+            merge(newNode);
+        }
 
-        merge(newNode);
     }
 
     /**
@@ -132,7 +139,7 @@ class DList {
             if (current.pos == pos) {
                 current.len -= len;
                 current.pos += len;
-                
+
                 if (current.len == 0 && this.size > 1) {
                     current.prev.next = current.next;
                     current.next.prev = current.prev;
@@ -141,6 +148,8 @@ class DList {
                 else {
                     merge(current);
                 }
+
+                break;
             }
 
             current = current.next;

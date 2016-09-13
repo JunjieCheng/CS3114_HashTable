@@ -1,5 +1,6 @@
-insert a<SEP>1
+insert aaabbb<SEP>bbbaaa
 print blocks
-remove artist a
-insert a<SEP>2
+insert cccddd<SEP>eeefff
+print blocks
+insert ggghhh<SEP>iiijjj
 print blocks
